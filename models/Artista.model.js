@@ -1,5 +1,7 @@
 const { Schema, model } = require("mongoose");
 
+
+
 const artistaSchema = new Schema(
   {
     nombre: {   
@@ -8,11 +10,11 @@ const artistaSchema = new Schema(
       unique: true,
   }, 
   imagen:{	
-      type: [String]
+      type: String
   }, 
 
   biografia:{	
-      type: [String]
+      type: String
   }, 
   enlaces:{
     spotify :{

@@ -61,7 +61,7 @@ router.post("/signup", async (req,res,next)=>{
     //el usuario es unico - required in model 
     const foundUser2 = await User.findOne({username:username})
     if(foundUser2){
-      res.status(400).json({message:"ya existe un usuario con ese nombre"})
+      res.status(400).json({message:"Ya existe un usuario con ese nombre"})
       //si esto ocurre salimos y no crea usuario
       return
     }
@@ -119,7 +119,7 @@ router.post("/login",async(req,res,next)=>{
     const isPasswordCorrect = await bcrypt.compare(password, foundUser.password)
     if(!isPasswordCorrect){
         //400 bad request
-     res.status(400).json({message:"Contraseña no es correcta"})
+     res.status(400).json({message:"La contraseña no es correcta"})
      //si esto ocurre salimos y no crea usuario
      return
     }

@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const mongoose = require("mongoose");
 
 const eventoSchema = new Schema(
   {
@@ -23,7 +24,7 @@ const eventoSchema = new Schema(
     }}, 
     artista: {  
       type: mongoose.Schema.Types.ObjectId, 
-      ref:"Artist"},
+      ref:"Artista"},
     genero:{
       type: [String],
       enum: ["Electronica", "Jazz", "Rock", "Pop", "Latina"]
