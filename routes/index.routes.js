@@ -12,5 +12,9 @@ router.use("/auth", authRouter)
 const artistaRouter = require("./artistas.routes")
 router.use("/artistas", artistaRouter)
 
+//rutas eventos
+const eventoRouter = require("./eventos.routes")
+router.use("/eventos", eventoRouter)
+
 
 module.exports = router;

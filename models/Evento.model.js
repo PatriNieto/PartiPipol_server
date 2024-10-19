@@ -24,7 +24,9 @@ const eventoSchema = new Schema(
     }}, 
     artista: {  
       type: mongoose.Schema.Types.ObjectId, 
-      ref:"Artista"},
+      ref:"Artista"
+      
+    },
     genero:{
       type: [String],
       enum: ["Electronica", "Jazz", "Rock", "Pop", "Latina"]

@@ -11,9 +11,6 @@ router.post("/artista", async (req, res,next)=>{
     //si esto ocurre salimos y no crea artista
     return
   }
-
- 
-
   try {
     const response = await Artista.create({
       nombre: req.body.nombre,
