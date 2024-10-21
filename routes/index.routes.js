@@ -9,7 +9,7 @@ router.get("/", (req, res, next) => {
 const authRouter =  require("./auth.routes")
 router.use("/auth", authRouter) 
 
-//rutas artistas
+//rutas artistas - eliminar esto 
 const artistaRouter = require("./artistas.routes")
 router.use("/artistas", artistaRouter)
 
@@ -19,7 +19,11 @@ router.use("/eventos", eventoRouter)
 
 //llamada API
 const artistRouter = require("./artists.routes");
-router.use("/artists", artistRouter); 
+router.use("/artists", artistRouter);
+
+//ruta obtencion datos usuario
+const userRouter = require("./user.router")
+router.use("/user", userRouter);
 
 // Ruta de verificación
 router.get("/", (req, res) => {

@@ -34,19 +34,34 @@ router.post('/evento', verifyToken, async (req, res) => {
 });
 
 
-//ver todos los eventos
+// ver todos los eventos
+router.get("/", async (req, res, next) => {
+  try {
+    // Obtiene los parámetros de consulta
+    const { genero, ciudad } = req.query;
+    const query = {};
 
- router.get("/", async (req,res,next)=>{
-  Evento.find({})
-  .then((eventos)=>{
-    console.log("Eventos ->", eventos);
-      res.json(eventos)
-  })
-  .catch((error)=>{
-    console.log(error)
-      next(error)
-  })
-}) 
+    if (genero) {
+      query.genero = genero;
+    }
+
+    // Si se proporciona una ciudad, añade la condición de ciudad
+    if (ciudad) {
+      query["direccion.ciudad"] = ciudad;
+    }
+     
+    // Busca los eventos en la base de datos con el objeto de consulta
+    const eventos = await Evento.find(query);
+
+    // Devuelve los eventos encontrados
+    res.status(200).json(eventos);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
+
 
 //ver los detalles de un evento
 

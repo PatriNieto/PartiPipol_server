@@ -20,6 +20,7 @@ const eventoSchema = new Schema(
     },
     ciudad: {
       type: String,
+      enum: ["Madrid", "Barcelona", "Bilbao", "Valencia", "Málaga","otra"],
       required: [true, "Debes indicar una ciudad"],
     }}, 
     artista: {  
