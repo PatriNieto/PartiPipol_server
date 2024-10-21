@@ -23,13 +23,11 @@ const eventoSchema = new Schema(
       required: [true, "Debes indicar una ciudad"],
     }}, 
     artista: {  
-      type: mongoose.Schema.Types.ObjectId, 
-      ref:"Artista"
-      
+      type: String
     },
     genero:{
       type: [String],
-      enum: ["Electronica", "Jazz", "Rock", "Pop", "Latina"]
+      enum: ["Electronica", "Jazz", "Rock", "Pop", "Latina",""]
     }, 
     descripcion: {
       type:String,

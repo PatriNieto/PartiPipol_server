@@ -8,44 +8,31 @@ const Artista = require("../models/Artista.model");
 const verifyToken = require("../middlewares/auth.middlewares");
 
 //crear evento
-router.post("/evento", async (req, res, next) => {
-    try {
-        let artistaId;
-        console.log(req.body.artista)
+router.post('/evento', verifyToken, async (req, res) => {
+  const { nombre, fecha, direccion, genero, descripcion, precio, artista } = req.body;
 
-        // Intentar encontrar el artista en la base de datos
-        const existeArtista = await Artista.findOne({ nombre: req.body.artista });
+  try {
+    
+    const promoter = req.userId; 
+    const nuevoEvento = new Evento({
+      nombre,
+      fecha,
+      direccion,
+      genero,
+      descripcion,
+      precio,
+      promoter,
+      artista
+    });
 
-        if (existeArtista) {
-            // Si el artista existe, usar su ID
-            artistaId = existeArtista._id;
-        } else {
-            // Si no existe, crear el artista
-            const newArtista = await Artista.create({ nombre: req.body.artista });
-            artistaId = newArtista._id;
-        }
-
-        // Crear el evento con el ID del artista
-        await Evento.create({
-            nombre: req.body.nombre,
-            fecha: req.body.fecha,
-            direccion: {
-                calle: req.body.direccion.calle,
-                ciudad: req.body.direccion.ciudad
-            },
-            artista: artistaId,
-            genero: req.body.genero,
-            descripcion: req.body.descripcion,
-            precio: req.body.precio,
-            promoter: req.userId
-        });
-
-        res.status(201).json({ message: "Evento creado correctamente" });
-    } catch (error) {
-        console.log(error);
-        next(error);
-    }
+    await nuevoEvento.save();
+    res.status(201).json({ message: 'Evento creado', data: nuevoEvento });
+  } catch (error) {
+    console.error("Error al crear el evento:", error);
+    res.status(500).json({ error: "No se pudo crear el evento" });
+  }
 });
+
 
 //ver todos los eventos
 

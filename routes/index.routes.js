@@ -1,4 +1,5 @@
-const router = require("express").Router();
+const express = require("express");
+const router = express.Router();
 
 router.get("/", (req, res, next) => {
   res.json("All good in here");
@@ -16,5 +17,13 @@ router.use("/artistas", artistaRouter)
 const eventoRouter = require("./eventos.routes")
 router.use("/eventos", eventoRouter)
 
+//llamada API
+const artistRouter = require("./artists.routes");
+router.use("/artists", artistRouter); 
+
+// Ruta de verificación
+router.get("/", (req, res) => {
+  res.json("Todo bien!");
+});
 
 module.exports = router;
