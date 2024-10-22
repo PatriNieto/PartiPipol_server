@@ -24,7 +24,7 @@ router.get("/:userId", async (req, res, next)=>{
   }
 })
 
-router.put("/:userId", verifyToken, async (req, res, next)=>{
+router.put("/:userId", async (req, res, next)=>{
   try {
     const user = await User.findByIdAndUpdate(req.params.userId, {
       imagenDePerfil : req.body.imagenDePerfil,
