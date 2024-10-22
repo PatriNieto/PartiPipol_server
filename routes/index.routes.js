@@ -30,4 +30,15 @@ router.get("/", (req, res) => {
   res.json("Todo bien!");
 });
 
+//ruta de Cloudinary
+// in routes/index.routes.js
+
+// ...
+
+const uploadRoutes = require("./upload.routes");
+router.use("/upload", uploadRoutes);
+
+// ...
+
+
 module.exports = router;

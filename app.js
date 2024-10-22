@@ -15,7 +15,12 @@ const app = express();
 require("./config")(app);
 
 const cors = require('cors');
-app.use(cors());
+const corsOptions = {
+  origin: "https://partipipol.netlify.app",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true 
+};
+app.use(cors(corsOptions));
 
 // 👇 Start handling routes here
 const indexRoutes = require("./routes/index.routes");
