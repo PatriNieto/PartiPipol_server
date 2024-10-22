@@ -38,7 +38,7 @@ router.post('/evento', verifyToken, async (req, res) => {
 router.get("/", async (req, res, next) => {
   try {
     // Obtiene los parámetros de consulta
-    const { genero, ciudad } = req.query;
+    const { genero, ciudad, nombre } = req.query;
     const query = {};
 
     if (genero) {
@@ -48,6 +48,14 @@ router.get("/", async (req, res, next) => {
     // Si se proporciona una ciudad, añade la condición de ciudad
     if (ciudad) {
       query["direccion.ciudad"] = ciudad;
+    }
+
+    if (nombre) {
+      //esto obviamente lo he buscado pero me parecia una implementacion importante de la aplicacion
+      query.$or = [
+        { nombre: { $regex: new RegExp(nombre, 'i') } }, // 'i' para hacer la búsqueda insensible a mayúsculas
+        { artista: { $regex: new RegExp(nombre, 'i') } } // Cambia 'artista' al nombre correcto del campo en tu esquema
+      ];
     }
      
     // Busca los eventos en la base de datos con el objeto de consulta

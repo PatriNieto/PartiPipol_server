@@ -20,9 +20,11 @@ const userSchema = new Schema(
       trim: true
 
     },
-   /*    imagenDePerfil: {
+       imagenDePerfil: {
           type: String, //(subir)
-    },
+          default:"https://media.istockphoto.com/id/1687018104/vector/vector-flat-illustration-in-grayscale-avatar-user-profile-person-icon-gender-neutral.jpg?s=612x612&w=0&k=20&c=PDi0AqXTtZ6d2Y7ahkMJEraVrC_fYCvx0HW508OWg-4="
+    }
+    /*
     role:{
       type:String,
       Enum: ["user","admin"],
