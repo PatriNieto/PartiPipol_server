@@ -3,6 +3,10 @@ const jwt = require("jsonwebtoken")
 
 
 function verifyToken(req,res,next){
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    return res.status(401).json({ error: "No token" });
+  }
 
   try {
     //cogemos el campo authorization del header y le cortamos la palabra Bearer
