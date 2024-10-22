@@ -24,5 +24,27 @@ router.get("/:userId", async (req, res, next)=>{
   }
 })
 
+router.put("/:userId", async (req, res, next)=>{
+  try {
+    const user = await User.findByIdAndUpdate(req.params.userId, {
+      imagenDePerfil : req.body.imagenDePerfil,
+      username : req.body.username,
+      email: req.body.email,
+      password: req.body.password
+    },{new:true})
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+    res.status(201).json({message:"Usuario actualizado"})
+  } catch (error) {
+    res.status(500).json({ message: 'Error al actualizar el usuario' });
+    next(error)
+  }
+})
+
+
+ 
+
+
 
 module.exports = router
