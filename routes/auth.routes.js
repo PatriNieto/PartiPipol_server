@@ -138,6 +138,8 @@ router.post("/login",async(req,res,next)=>{
         expiresIn: "30d"
       } )
 
+      console.log("authToken2", authToken)
+
         //enviamos que ok y el token al FE
      res.status(200).json({authToken:authToken})
 
@@ -145,6 +147,8 @@ router.post("/login",async(req,res,next)=>{
     next(error)
   }
 })
+
+
 
 
 //verify

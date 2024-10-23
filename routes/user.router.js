@@ -43,6 +43,18 @@ router.put("/:userId", async (req, res, next)=>{
 })
 
 
+//eliminar cuenta de usuario
+//mover a user
+router.delete("/:userId",verifyToken, async (req,res,next)=>{
+  try {
+    await User.findByIdAndDelete(req.payload._id)
+    res.status(204).json({message:"Usuario eliminado"})
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}) 
+
  
 
 

@@ -16,7 +16,8 @@ require("./config")(app);
 
 const cors = require('cors');
 const corsOptions = {
-  origin: "https://partipipol.netlify.app",
+  origin: "*",
+  //origin: "https://partipipol.netlify.app",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true 
 };

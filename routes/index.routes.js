@@ -17,6 +17,10 @@ router.use("/artistas", artistaRouter)
 const eventoRouter = require("./eventos.routes")
 router.use("/eventos", eventoRouter)
 
+//rutas comentarios
+const comentarioRouter = require("./comentarios.routes")
+router.use("/comentarios", comentarioRouter)
+
 //llamada API
 const artistRouter = require("./artists.routes");
 router.use("/artists", artistRouter);
