@@ -20,8 +20,11 @@ router.post('/:eventoId', verifyToken, async (req, res) => {
       evento:eventoId
     });
 
+    //aplicamos populate en la respuesta
+    const comentarioConUsuario = await nuevoComentario.populate("usuario")
+
     await nuevoComentario.save();
-    res.status(201).json({ message: 'Comentario creado', data: nuevoComentario });
+    res.status(201).json({ message: 'Comentario creado', data: comentarioConUsuario });
   } catch (error) {
     console.error("Error al crear el comentario:", error);
     res.status(500).json({ error: "No se pudo crear el comentario" });
@@ -37,7 +40,7 @@ router.get("/:eventoId", async (req, res, next) => {
   try {
  
     // Busca los ccomentarios en la base de datos con el objeto de consulta
-    const comentarios = await Comentario.find({evento: eventoId});
+    const comentarios = await Comentario.find({evento: eventoId}).populate("usuario");
 
     // Devuelve los eventos encontrados
     res.status(200).json(comentarios);
