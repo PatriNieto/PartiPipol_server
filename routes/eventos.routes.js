@@ -9,7 +9,7 @@ const verifyToken = require("../middlewares/auth.middlewares");
 
 //crear evento
 router.post('/evento', verifyToken, async (req, res) => {
-  const { nombre, fecha, direccion, genero, descripcion, precio, artista } = req.body;
+  const { nombre, fecha, direccion, genero, descripcion, precio, artista, image } = req.body;
 
   try {
     
@@ -21,6 +21,7 @@ router.post('/evento', verifyToken, async (req, res) => {
       genero,
       descripcion,
       precio,
+      image,
       promoter,
       artista
     });
@@ -92,6 +93,7 @@ router.put("/:eventoId", async (req, res,next)=>{
       fecha: req.body.fecha,
       genero: req.body.genero,
       precio: req.body.precio,
+      image: req.body.image,
       direccion: {
         calle: req.body.direccion.calle,
         ciudad: req.body.direccion.ciudad
@@ -118,6 +120,73 @@ router.delete("/:eventoId",async (req,res,next)=>{
 }) 
 
 
+
+//------------------------------------RUTAS para gestionar asistencia al evento
+
+// Ruta para like/ asistencia
+router.post("/:eventoId/asistir", verifyToken, async (req, res) => {
+  const { eventoId } = req.params;
+  const userId = req.payload._id;
+  try {
+    const evento = await Evento.findByIdAndUpdate(eventoId)
+
+    //si no encontramos el evento porque se ha borrado mientras o lo que sea, salimos
+    if (!evento) {
+      return res.status(404).json({ message: "Evento no encontrado" });
+    }
+    //declaramos una variable para actualizar el evento 
+    let update 
+    // Alternar asistencia, para que sea la misma ruta asistire, que no asistire
+    if (evento.asistentes.includes(userId)) {
+      //si id usuario esta en asistentes, lo quitamos
+      update = {$pull: {asistentes: userId}}
+    } else {
+      // Si no está, lo añadimos
+      update ={ $addToSet : {asistentes: userId}} 
+      // evento.asistentes.push(userId);
+    }
+
+   //actualizamos el evento:
+   await Evento.findByIdAndUpdate(eventoId, update);
+
+    res.status(200).json({ message: "Asistencia actualizada correctamente" });
+  } catch (error) {
+    res.status(500).json({ message: "Error al actualizar la asistencia" });
+  }
+});
+
+// Ruta para desmarcar asistencia
+/* router.delete("/:eventoId/asistir/:userId", verifyToken, async (req, res) => {
+  try {
+    const eventoId = req.params.eventoId;
+    const userId = req.userId;
+
+    // Eliminar el usuario de la lista de asistentes
+    const evento = await Evento.findByIdAndUpdate(
+      eventoId,
+    {
+      $pull: { asistentes: userId }
+    },{
+      new: true 
+    });
+
+    if (evento.asistentes.includes(userId)) {
+      evento.asistentes = evento.asistentes.filter(id => id.toString() !== userId);
+
+      //clausula por si no carga el evento o ya se ha eliminado
+      if (!evento) {
+        return res.status(404).json({ message: "Evento no encontrado" });
+      }
+
+      return res.status(200).json({ message: "Asistencia desmarcada", data: evento });
+    } else {
+      return res.status(400).json({ message: "No has marcado asistencia" });
+    }
+  } catch (error) {
+    console.error("Error al desmarcar asistencia:", error);
+    res.status(500).json({ error: "No se pudo desmarcar la asistencia" });
+  }
+}); */
 
 
 module.exports = router;

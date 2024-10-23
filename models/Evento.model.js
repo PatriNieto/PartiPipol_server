@@ -41,7 +41,17 @@ const eventoSchema = new Schema(
     promoter: {
       type: mongoose.Schema.Types.ObjectId, 
       ref:"User"
-        }
+        },
+        image:{
+          type:String,
+          default:"https://static.ra.co/images/clubs/lg/18aniversarioo3.jpg?dateUpdated=1698676608907"
+        },
+    asistentes: {
+          type: [mongoose.Schema.Types.ObjectId], 
+          ref:"User"
+            }
+    
+    
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`    

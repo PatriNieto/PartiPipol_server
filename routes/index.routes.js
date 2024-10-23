@@ -10,8 +10,8 @@ const authRouter =  require("./auth.routes")
 router.use("/auth", authRouter) 
 
 //rutas artistas - eliminar esto 
-const artistaRouter = require("./artistas.routes")
-router.use("/artistas", artistaRouter)
+/* const artistaRouter = require("./artistas.routes")
+router.use("/artistas", artistaRouter) */
 
 //rutas eventos
 const eventoRouter = require("./eventos.routes")

@@ -15,8 +15,9 @@ function verifyToken(req,res,next){
 
     //enviamos este payload al front para que cada llaamda que incluya esta función tenga la información
     req.payload = payload
+    req.userId = payload._id
 
-    console.log("Token verificado, usuario Id: ", req.payload._id)
+    console.log("Token verificado, usuario Id: ", req.userId)
     next()
   } catch (error) {
     console.log("error en verifyToken", error)
