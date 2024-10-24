@@ -36,6 +36,7 @@ const eventoSchema = new Schema(
     },
     precio:{
       type: Number,
+      min: [0, "El precio no puede ser menor que 0"],
       required: true
     },
     promoter: {

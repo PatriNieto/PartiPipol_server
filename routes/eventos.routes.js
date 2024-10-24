@@ -84,8 +84,8 @@ router.get("/:eventoId", async (req, res,next)=>{
   }
 }) 
 
-// Actualizar un evento
-router.put("/:eventoId", async (req, res,next)=>{
+// Actualizar un evento -verify
+router.put("/:eventoId",verifyToken, async (req, res,next)=>{
   try {
     const response = await Evento.findByIdAndUpdate(req.params.eventoId,{
       nombre: req.body.nombre,
@@ -109,7 +109,7 @@ router.put("/:eventoId", async (req, res,next)=>{
 })
 
 //borrar un evento
-router.delete("/:eventoId",async (req,res,next)=>{
+router.delete("/:eventoId",verifyToken,async (req,res,next)=>{
   try {
     await Evento.findByIdAndDelete(req.params.eventoId)
     res.status(204).json({message:"Evento eliminado"})

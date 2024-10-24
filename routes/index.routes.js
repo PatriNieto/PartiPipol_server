@@ -26,7 +26,7 @@ const artistRouter = require("./artists.routes");
 router.use("/artists", artistRouter);
 
 //ruta obtencion datos usuario
-const userRouter = require("./user.router")
+const userRouter = require("./user.routes")
 router.use("/user", userRouter);
 
 // Ruta de verificación
