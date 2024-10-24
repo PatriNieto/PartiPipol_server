@@ -11,6 +11,14 @@ const verifyToken = require("../middlewares/auth.middlewares");
 router.post('/evento', verifyToken, async (req, res) => {
   const { nombre, fecha, direccion, genero, descripcion, precio, artista, image } = req.body;
 
+  //validaciones necesarias en crear evento:
+  if(!nombre || !fecha || !direccion.calle || !direccion.ciudad  || !descripcion || !precio){
+    //400 bad request
+    res.status(400).json({message:"Todos los campos son obligatorios"})
+    //si esto ocurre salimos y no crea usuario
+    return
+  }
+
   try {
     
     const promoter = req.userId; 
