@@ -10,7 +10,7 @@ const eventoSchema = new Schema(
     },
     fecha: {
       //si tengo tiempo se lo paso a new Date para generar 
-      type: String,
+      type: Date,
       required: [true, "Debes indicar una fecha"],
     },
     direccion: {
