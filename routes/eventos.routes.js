@@ -14,7 +14,7 @@ router.post('/evento', verifyToken, async (req, res) => {
   //validaciones necesarias en crear evento:
   if(!nombre || !fecha || !direccion.calle || !direccion.ciudad  || !descripcion || !precio){
     //400 bad request
-    res.status(400).json({message:"Todos los campos son obligatorios"})
+    res.status(400).json({message:"Los campos marcados son obligatorios"})
     //si esto ocurre salimos y no crea usuario
     return
   }
@@ -94,7 +94,9 @@ router.get("/:eventoId", async (req, res,next)=>{
 
 // Actualizar un evento -verify
 router.put("/:eventoId",verifyToken, async (req, res,next)=>{
+  
   try {
+   
     const response = await Evento.findByIdAndUpdate(req.params.eventoId,{
       nombre: req.body.nombre,
       descripcion: req.body.descripcion,
