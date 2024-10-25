@@ -44,8 +44,7 @@ const eventoSchema = new Schema(
       ref:"User"
         },
         image:{
-          type:String,
-          default:"https://static.ra.co/images/clubs/lg/18aniversarioo3.jpg?dateUpdated=1698676608907"
+          type:String
         },
     asistentes: {
           type: [mongoose.Schema.Types.ObjectId], 
